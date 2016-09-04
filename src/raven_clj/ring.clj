@@ -2,13 +2,16 @@
   (:require [raven-clj.core :refer [capture]]
             [raven-clj.interfaces :refer [http stacktrace]]))
 
-(defn capture-error [dsn req ^Throwable error extra app-namespaces http-alter-fn]
+(defn capture-error
+  [dsn req ^Throwable error extra app-namespaces http-alter-fn]
   (future (capture dsn (-> (merge extra
                                   {:message (.getMessage error)})
                            (http req http-alter-fn)
                            (stacktrace error app-namespaces)))))
 
-(defn wrap-sentry [handler dsn & [opts]]
+(defn wrap-sentry
+  "Capture error, send to Sentry, throw back"
+  [handler dsn & [opts]]
   (fn [req]
     (let [alter-fn (or (:http-alter-fn opts)
                        identity)]

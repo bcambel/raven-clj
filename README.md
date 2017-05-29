@@ -1,11 +1,11 @@
 # raven-clj
 
-A Clojure interface to Sentry.
+A Clojure interface to Sentry. Upgraded to the latest version of the libraries
 
 ## Usage
 
 ```clojure
-[raven-clj "1.4.1"]
+[raven-clj "1.5.0"]
 ```
 
 ### `capture`
@@ -90,6 +90,12 @@ raven-clj also includes a Ring middleware that sends the Http and Stacktrace int
 
 ## Changes
 
+- **1.5.0**
+    - fix how request method is extracted from ring requests ([#22](https://github.com/sethtrain/raven-clj/pull/22)
+    - send stringified ex-data ([#21](https://github.com/sethtrain/raven-clj/pull/22))
+- **1.4.3**
+    - fix docstring argvec order in `capture` function ([#16](https://github.com/sethtrain/raven-clj/pull/16))
+    - fix NPE when a frame's file path is `nil` ([#14](https://github.com/sethtrain/raven-clj/pull/14))
 - **1.4.2**
     - add missing requires
 - **1.4.1 (defunct)**

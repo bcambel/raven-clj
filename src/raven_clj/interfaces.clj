@@ -11,7 +11,7 @@
              (if (not= 80 (:server-port req))
                (str ":" (:server-port req)))
              (:uri req))
-   :method (:method req)
+   :method (:request-method req)
    :headers (get req :headers {})
    :query_string (get req :query-string "")
    :data (get req :params {})
@@ -22,7 +22,8 @@
          (alter-fn (make-http-info req))))
 
 (defn file->source [file-path line-number]
-  (some-> (io/resource file-path)
+  (some-> file-path
+    (io/resource)
     slurp
     (string/split #"\n")
     (#(drop (- line-number 6) %))
